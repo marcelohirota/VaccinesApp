@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
 class MyAdapter (val vaccineList: ArrayList<VaccineModel>)
@@ -17,19 +18,24 @@ class MyAdapter (val vaccineList: ArrayList<VaccineModel>)
             init {
                 vaccineTitle = itemView.findViewById(R.id.text1)
                 vaccineImage = itemView.findViewById(R.id.imageView)
+
+                itemView.setOnClickListener {
+                    Toast.makeText(itemView.context, "You have choosen ${vaccineList[adapterPosition].name}", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.recycler_item_layout, parent, false)
-        return TODO("Provide the return value")
+        return MyViewHolder(v)
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return vaccineList.size
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        holder.vaccineTitle.setText(vaccineList[position].name)
+        holder.vaccineImage.setImageResource(vaccineList[position].img)
     }
 }
